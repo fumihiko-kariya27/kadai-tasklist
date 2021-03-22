@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import models.Message;
 import utils.DButil;
+
 
 /**
  * Servlet implementation class IndexServlet
@@ -36,9 +38,14 @@ public class IndexServlet extends HttpServlet {
 		EntityManager em = DButil.createEntityManager();
 
 		List<Message> message = em.createNamedQuery("getAllMessage", Message.class).getResultList();
-		response.getWriter().append(Integer.valueOf(messages.size()).toString());
+		response.getWriter().append(Integer.valueOf(message.size()).toString());
 
 		em.close();
+
+		request.setAttribute("message", message);
+
+		RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/messages/index.jsp");
+		rd.forward(request, response);
 	}
 
 }
