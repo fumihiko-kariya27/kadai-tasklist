@@ -9,20 +9,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
 @Entity
+@NamedQueries({
+	@NamedQuery(
+			name="getAllMessage",
+			query="select m from Message as m order by m.id desc"
+			)
+})
+
 @Table(name = "tasks")
 public class Message {
 	@Id
 	`Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.identify)
 	private Integer Id;
-	
+
 	@Column(name="content",length=255,nullable=false)
 	private String content;
-	
+
 	@Column(name="created_at",nullable=false)
 	private Timestamp created_at;
-	
+
 	@Column(name = "updated_at", nullable = false)
     private Timestamp updated_at;
 

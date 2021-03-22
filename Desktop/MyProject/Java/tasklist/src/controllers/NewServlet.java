@@ -1,7 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.List;
+import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -14,16 +14,16 @@ import models.Message;
 import utils.DButil;
 
 /**
- * Servlet implementation class IndexServlet
+ * Servlet implementation class NewServlet
  */
-@WebServlet("/index")
-public class IndexServlet extends HttpServlet {
+@WebServlet("/new")
+public class NewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public IndexServlet() {
+	public NewServlet() {
 		super();
 	}
 
@@ -35,9 +35,20 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		EntityManager em = DButil.createEntityManager();
 
-		List<Message> message = em.createNamedQuery("getAllMessage", Message.class).getResultList();
-		response.getWriter().append(Integer.valueOf(messages.size()).toString());
+		Message m = new Message();
 
+		String content="hello";
+		m.setContent(content);
+
+		Timestamp currentTime=new Timestamp(System.currentTimeMillis());
+		m.setCreated_at(currentTime);
+		m.setUpdated_at(currentTime);
+
+		em.getTransaction().begin();
+		em.persist(m);
+		em.Transaction().commit();
+
+		response.getWriter().append(Integer.valueOf(m.getId()).toString());
 		em.close();
 	}
 
