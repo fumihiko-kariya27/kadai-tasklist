@@ -4,12 +4,12 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>メッセージボード</title>
+<title>タスク管理アプリケーション</title>
 </head>
 <body>
 	<div id="wrapper">
 		<div id="header">
-		<h1>メッセージボードアプリケーション</h1>
+		<h1>タスク管理一覧</h1>
 		</div>
 		<div id="content">
 		${param.content}

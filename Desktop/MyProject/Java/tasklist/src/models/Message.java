@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(
         name = "getAllMessages",
-        query = "SELECT m FROM Message AS m ORDER BY m.id DESC"
+        query = "SELECT m FROM Message AS m ORDER BY m.id"
     )
 })
 @Table(name = "tasks")
@@ -23,7 +23,7 @@ public class Message {
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer Id;
+	private Integer id;
 
 	@Column(name="content",length=255,nullable=false)
 	private String content;
@@ -35,11 +35,11 @@ public class Message {
     private Timestamp updated_at;
 
 	public Integer getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Integer id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getContent() {

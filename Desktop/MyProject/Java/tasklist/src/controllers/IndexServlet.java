@@ -37,7 +37,7 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		EntityManager em = DButil.createEntityManager();
 
-		List<Message> message = em.createNamedQuery("getAllMessage", Message.class).getResultList();
+		List<Message> message = em.createNamedQuery("getAllMessages", Message.class).getResultList();
 		response.getWriter().append(Integer.valueOf(message.size()).toString());
 
 		em.close();
