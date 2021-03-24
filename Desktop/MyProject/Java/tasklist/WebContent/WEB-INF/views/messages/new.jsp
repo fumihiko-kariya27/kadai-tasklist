@@ -3,6 +3,14 @@
 <c:import url="../layout/app.jsp">
     <c:param name="content">
         <h2>登録タスク内容</h2>
+        <c:if test="${errors != null}">
+   			 <div id="flush_error">
+    		    入力内容にエラーがあります。<br />
+   			     <c:forEach var="error" items="${errors}">
+     	  	     ・<c:out value="${error}" /><br />
+     			  </c:forEach>
+  			  </div>
+  		 </c:if>
 
         <form method="POST" action="${pageContext.request.contextPath}/create">
             <label>登録内容<br />
