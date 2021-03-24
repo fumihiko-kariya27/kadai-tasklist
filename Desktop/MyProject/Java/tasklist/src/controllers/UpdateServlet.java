@@ -39,7 +39,7 @@ public class UpdateServlet extends HttpServlet {
 
 			Message m = em.find(Message.class, (Integer) (request.getSession().getAttribute("message_id")));
 
-			String content = request.getParameter("contetn");
+			String content = request.getParameter("content");
 			m.setContent(content);
 
 			Timestamp currentTime = new Timestamp(System.currentTimeMillis());
