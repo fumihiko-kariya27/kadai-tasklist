@@ -13,7 +13,7 @@
 			<button type="submit">登録</button>
         </form>
 
-        <p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
+        <p><a href="${pageContext.request.contextPath}/index">・一覧に戻る</a></p>
 
     </c:param>
 </c:import>

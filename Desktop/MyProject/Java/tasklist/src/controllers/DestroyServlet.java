@@ -19,31 +19,34 @@ import utils.DButil;
 public class DestroyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DestroyServlet() {
-        super();
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public DestroyServlet() {
+		super();
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String _token=request.getParameter("_token");
-		if(_token!=null&&_token.equals(request.getSession().getId())){
-			EntityManager em=DButil.createEntityManager();
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String _token = request.getParameter("_token");
+		if (_token != null && _token.equals(request.getSession().getId())) {
+			EntityManager em = DButil.createEntityManager();
 
-			Message m=em.find(Message.class, (Integer)(request.getSession().getAttribute("message_id")));
+			Message m = em.find(Message.class, (Integer) (request.getSession().getAttribute("message_id")));
 
 			em.getTransaction().begin();
 			em.remove(m);
 			em.getTransaction().commit();
+			request.getSession().setAttribute("flush", "削除が完了しました。");
 			em.close();
 
 			request.getSession().removeAttribute("message_id");
 
-			response.sendRedirect(request.getContextPath()+"/index");
+			response.sendRedirect(request.getContextPath() + "/index");
 		}
 	}
 }

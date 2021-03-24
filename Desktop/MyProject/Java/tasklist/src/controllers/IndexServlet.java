@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import models.Message;
 import utils.DButil;
 
-
 /**
  * Servlet implementation class IndexServlet
  */
@@ -37,14 +36,30 @@ public class IndexServlet extends HttpServlet {
 			throws ServletException, IOException {
 		EntityManager em = DButil.createEntityManager();
 
-		List<Message> message = em.createNamedQuery("getAllMessages", Message.class).getResultList();
-		response.getWriter().append(Integer.valueOf(message.size()).toString());
+		int page = 1;
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
+		List<Message> message = em.createNamedQuery("getAllMessages", Message.class).setFirstResult(10 * (page - 1))
+				.setMaxResults(10).getResultList();
+
+		long messages_count=(long)em.createNamedQuery("getMessageCount", Long.class).getSingleResult();
 
 		em.close();
 
 		request.setAttribute("message", message);
+		request.setAttribute("messages_count", messages_count);
+		request.setAttribute("page", page);
 
-		RequestDispatcher rd=request.getRequestDispatcher("/WEB-INF/views/messages/index.jsp");
+		if (request.getSession().getAttribute("flush") != null) {
+			request.setAttribute("flush", request.getSession().getAttribute("flush"));
+			request.getSession().removeAttribute("flush");
+		}
+
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/messages/index.jsp");
 		rd.forward(request, response);
 	}
 

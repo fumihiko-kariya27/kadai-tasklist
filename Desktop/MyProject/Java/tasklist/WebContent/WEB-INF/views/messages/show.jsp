@@ -6,12 +6,25 @@
 		<c:choose>
 			<c:when test="${message!=null}">
 				<h2>${message.id}番のタスクページ</h2>
-				<p>業務内容：<c:out value="${message.content}" /></p><br>
-				<p>完了日時：<fmt:formatDate value="${message.created_at}" pattern="yyyy-MM-dd HH:mm:ss"/></p><br>
-				<p>更新日時：<fmt:formatDate value="${message.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" /></p>
+				<table>
+                    <tbody>
+                        <tr>
+                            <th>詳細</th>
+                            <td><c:out value="${message.content}" /></td>
+                        </tr>
+                        <tr>
+                            <th>作成日時</th>
+                            <td><fmt:formatDate value="${message.created_at}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                        </tr>
+                        <tr>
+                            <th>更新日時</th>
+                            <td><fmt:formatDate value="${message.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-				<p><a href="${pageContext.request.contextPath}/index">一覧に戻る</a></p>
-				<p><a href="${pageContext.request.contextPath}/edit?id=${message.id}">このメッセージを編集する</a></p>
+				<p><a href="${pageContext.request.contextPath}/index">・一覧に戻る</a></p>
+				<p><a href="${pageContext.request.contextPath}/edit?id=${message.id}">・このメッセージを編集する</a></p>
 			</c:when>
 			<c:otherwise>
 				<h3>お探しのページは見つかりませんでした</h3>
